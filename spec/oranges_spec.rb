@@ -40,12 +40,18 @@ describe OrangeTree do
     expect(orange_tree.oranges).to eq []
   end
 
-  it 'only grows oranges after reaches 3 years old' do
-    assert_emptiness_when_young
-    orange_tree.age!
+  it 'is empty for the first two years' do
+    age_by_years(2)
+
+    expect(orange_tree.oranges).to be_empty
+  end
+
+  it 'starts growing trees on its third year' do
+    age_by_years(3)
 
     all_oranges?(orange_tree)
   end
+
 
   it 'can be picked' do
     age_by_years(3)
@@ -60,16 +66,6 @@ describe OrangeTree do
     orange_tree.oranges.each do |orange|
       expect(orange).to be_an_instance_of(Orange)
     end
-  end
-
-  def assert_emptiness_when_young
-    orange_tree.age!
-
-    expect(orange_tree.oranges).to eq []
-
-    orange_tree.age!
-
-    expect(orange_tree.oranges).to eq []
   end
 
   def age_by_years(number_of_years)
